@@ -1,0 +1,27 @@
+{
+  "name": "node-destiny",
+  "version": "1.0.0",
+  "description": "node api client for Bungies Destiny API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carstenosu/node-destiny.git"
+  },
+  "keywords": [
+    "node",
+    "destiny",
+    "bungie"
+  ],
+  "author": "Chris Foley",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carstenosu/node-destiny/issues"
+  },
+  "homepage": "https://github.com/carstenosu/node-destiny#readme",
+  "dependencies": {
+    "node-rest-client-promise": "^2.0.0"
+  }
+}
