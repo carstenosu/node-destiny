@@ -1,6 +1,7 @@
 var client = require('node-rest-client-promise').Client();
 
-var baseUrl = 'https://www.bungie.net/platform/Destiny';
+var bungieUrl = 'https://www.bungie.net';
+var baseUrl = bungieUrl + '/platform/Destiny';
 
 var args = {
     path: { 'membershipType' : 1, 'displayName': 'Carsten' },
@@ -22,8 +23,27 @@ client.getPromise( baseUrl + '/SearchDestinyPlayer/${membershipType}/${displayNa
 
         characters.forEach(function(character) {
             console.log( 'Character ' + character.characterBase.characterId + ' light level is: ' + character.characterBase.powerLevel );
-        });
 
+            args.path.characterId = character.characterBase.characterId;
+            client.getPromise( baseUrl + '/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/?definitions=true', args ).then( function( response ) {
+                var characterResponse = response.data.Response.data
+                var definitions = response.data.Response.definitions;
+
+                var genderHash = characterResponse.characterBase.genderHash;
+                var raceHash = characterResponse.characterBase.raceHash;
+                var classHash = characterResponse.characterBase.classHash;
+
+                var genderName = definitions.genders[genderHash].genderName;
+                var raceName = definitions.races[raceHash].raceName;
+                var className = definitions.classes[classHash].className;
+
+                console.log( 'Got character summary for ' + genderName + ' ' + raceName + ' ' + className );
+                console.log( 'Emblem Url: ' + bungieUrl + response.data.Response.data.emblemPath);
+                console.log( 'Icon Url: ' + bungieUrl + response.data.Response.data.backgroundPath);
+
+            } )
+
+        });
 
     });
 
