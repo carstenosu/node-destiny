@@ -1,11 +1,20 @@
 
 var apiKey = '';
 var client = require('node-rest-client-promise').Client();
-var destiny = require('./src/main.js').Destiny( apiKey );
 
 
 var bungieUrl = 'https://www.bungie.net';
 var baseUrl = bungieUrl + '/platform/Destiny';
+
+var destiny = require('./src/main.js');
+
+var destinyInstance = new destiny.Destiny( apiKey, baseUrl );
+destinyInstance.loadCharacters('1', 'Carsten').then( function( response ){
+    console.log('Got a response!');
+    var membership = response.data.Response[0];
+    var membershipId = membership.membershipId;
+    console.log('Users membership id: ' + membershipId );
+});
 
 var args = {
     path: { 'membershipType' : 1, 'displayName': 'Carsten' },
