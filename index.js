@@ -1,12 +1,20 @@
+
+var apiKey = '';
 var client = require('node-rest-client-promise').Client();
+var destiny = require('./src/main.js').Destiny( apiKey );
+
 
 var bungieUrl = 'https://www.bungie.net';
 var baseUrl = bungieUrl + '/platform/Destiny';
 
 var args = {
     path: { 'membershipType' : 1, 'displayName': 'Carsten' },
-    headers: { 'X-API-Key': '' }
+    headers: { 'X-API-Key': apiKey }
 };
+
+//var Destiny = require('./src/classes/Destiny.js');
+//var destinyObject = new Destiny(args.headers['X-API-Key'], baseUrl );
+
 
 client.getPromise( baseUrl + '/SearchDestinyPlayer/${membershipType}/${displayName}', args).then( function( response ){
     console.log('Got a response!');
