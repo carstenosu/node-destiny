@@ -24,6 +24,19 @@ destinyInstance.search('1', 'Carsten').then( function( response ){
         characters.forEach(function(character) {
             console.log( 'Character ' + character.characterBase.characterId + ' light level is: ' + character.characterBase.powerLevel );
 
+            var params = { mode: 'Raid', count: '10', page: '0'}
+            destinyInstance.getActivityHistory( character.characterBase.characterId, params ).then(function( response ){
+                console.log( 'Raid History for ' + character.characterBase.characterId );
+                var raidActivities = response.data.Response.data.activities;
+                var raidDefinitions = response.data.Response.definitions;
+
+                raidActivities.forEach( function( raidActivity ){
+                    var raidReferenceId = raidActivity.activityDetails.referenceId;
+                    console.log( 'You ran ' + raidDefinitions.activities[raidReferenceId].activityName + ' on ' + raidActivity.period );
+                })
+
+            });
+
             destinyInstance.getCharacterSummary( character.characterBase.characterId ).then( function( response ) {
                 var characterResponse = response.data.Response.data
                 var definitions = response.data.Response.definitions;

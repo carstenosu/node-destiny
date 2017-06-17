@@ -1,6 +1,7 @@
 'use strict';
 
 var client = require('node-rest-client-promise').Client();
+var extend = require('util')._extend
 
 class DestinyClient {
     
@@ -31,7 +32,13 @@ class DestinyClient {
 
     getCharacterSummary( characterId ) {
         this.args.path.characterId = characterId;
-        return client.getPromise( this.hostUrl + '/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}', this.args )
+        return client.getPromise( this.hostUrl + '/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/', this.args )
+    }
+
+    getActivityHistory( characterId, params ) {
+        this.args.path.characterId = characterId;
+        this.args.parameters = extend( this.args.parameters, params );
+        return client.getPromise( this.hostUrl + '/Stats/ActivityHistory/${membershipType}/${destinyMembershipId}/${characterId}/', this.args);
     }
 
 }
