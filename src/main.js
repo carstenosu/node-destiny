@@ -1,12 +1,5 @@
 'use strict';
 
-var destiny = function( apiKey ) {
-
-    return {
-        headers: { 'X-API-Key': apiKey }
-    };
-}
-
 var client = require('node-rest-client-promise').Client();
 
 class DestinyClient {
@@ -16,13 +9,29 @@ class DestinyClient {
         this.hostUrl = hostUrl;
 
         this.args = {
-            headers: { 'X-API-Key': apiKey }
+            headers: { 'X-API-Key': apiKey },
+            path: {},
+            parameters: { 'definitions': false }
         };
     }
 
-    loadCharacters( membershipType, membershipId ) {
-        this.args.path = { 'membershipType' : membershipType, 'displayName': membershipId };
+    set definitions( definitions ) {
+        this.args.parameters.definitions = definitions;
+    }
+
+    search( membershipType, displayName ) {
+        this.args.path = { 'membershipType' : membershipType, 'displayName': displayName };
         return client.getPromise( this.hostUrl + '/SearchDestinyPlayer/${membershipType}/${displayName}', this.args);
+    }
+
+    getAccountSummary( membershipId ) {
+        this.args.path.destinyMembershipId = membershipId;
+        return client.getPromise( this.hostUrl + '/${membershipType}/Account/${destinyMembershipId}/Summary', this.args )
+    }
+
+    getCharacterSummary( characterId ) {
+        this.args.path.characterId = characterId;
+        return client.getPromise( this.hostUrl + '/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}', this.args )
     }
 
 }

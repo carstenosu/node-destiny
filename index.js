@@ -1,7 +1,5 @@
 
 var apiKey = '';
-var client = require('node-rest-client-promise').Client();
-
 
 var bungieUrl = 'https://www.bungie.net';
 var baseUrl = bungieUrl + '/platform/Destiny';
@@ -9,40 +7,24 @@ var baseUrl = bungieUrl + '/platform/Destiny';
 var destiny = require('./src/main.js');
 
 var destinyInstance = new destiny.Destiny( apiKey, baseUrl );
-destinyInstance.loadCharacters('1', 'Carsten').then( function( response ){
-    console.log('Got a response!');
-    var membership = response.data.Response[0];
-    var membershipId = membership.membershipId;
-    console.log('Users membership id: ' + membershipId );
-});
-
-var args = {
-    path: { 'membershipType' : 1, 'displayName': 'Carsten' },
-    headers: { 'X-API-Key': apiKey }
-};
-
-//var Destiny = require('./src/classes/Destiny.js');
-//var destinyObject = new Destiny(args.headers['X-API-Key'], baseUrl );
-
-
-client.getPromise( baseUrl + '/SearchDestinyPlayer/${membershipType}/${displayName}', args).then( function( response ){
+destinyInstance.search('1', 'Carsten').then( function( response ){
     console.log('Got a response!');
     var membership = response.data.Response[0];
     var membershipId = membership.membershipId;
     console.log('Users membership id: ' + membershipId );
 
-    args.path.destinyMembershipId = membershipId;
-    client.getPromise( baseUrl + '/${membershipType}/Account/${destinyMembershipId}/Summary/', args ).then( function( response ){
+    destinyInstance.getAccountSummary( membershipId ).then( function( response ){
         console.log('Got Membership Summary');
         var characters = response.data.Response.data.characters;
         var grimoireScore = 4615;
         console.log( 'User has ' + characters.length + ' characters and a grimoire score of ' + grimoireScore );
 
+        destinyInstance.definitions = true;
+
         characters.forEach(function(character) {
             console.log( 'Character ' + character.characterBase.characterId + ' light level is: ' + character.characterBase.powerLevel );
 
-            args.path.characterId = character.characterBase.characterId;
-            client.getPromise( baseUrl + '/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/?definitions=true', args ).then( function( response ) {
+            destinyInstance.getCharacterSummary( character.characterBase.characterId ).then( function( response ) {
                 var characterResponse = response.data.Response.data
                 var definitions = response.data.Response.definitions;
 
@@ -57,9 +39,7 @@ client.getPromise( baseUrl + '/SearchDestinyPlayer/${membershipType}/${displayNa
                 console.log( 'Got character summary for ' + genderName + ' ' + raceName + ' ' + className );
                 console.log( 'Emblem Url: ' + bungieUrl + response.data.Response.data.emblemPath);
                 console.log( 'Icon Url: ' + bungieUrl + response.data.Response.data.backgroundPath);
-
-            } )
-
+            })
         });
 
     });
