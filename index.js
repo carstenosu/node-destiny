@@ -1,31 +1,31 @@
 
-var apiKey = '';
+var apiKey = process.env.BUNGIE_API_KEY;
 
 var bungieUrl = 'https://www.bungie.net';
 var baseUrl = bungieUrl + '/platform/Destiny';
 
 var destiny = require('./src/main.js');
 
-var destinyInstance = new destiny.Destiny( apiKey, baseUrl );
-destinyInstance.search('1', 'Carsten').then( function( response ){
+var destinyClient = new destiny.DestinyClient( apiKey, baseUrl );
+destinyClient.search('1', 'Carsten').then( function( response ){
     console.log('Got a response!');
     var membership = response.data.Response[0];
     var membershipId = membership.membershipId;
     console.log('Users membership id: ' + membershipId );
 
-    destinyInstance.getAccountSummary( membershipId ).then( function( response ){
+    destinyClient.getAccountSummary( membershipId ).then( function( response ){
         console.log('Got Membership Summary');
         var characters = response.data.Response.data.characters;
         var grimoireScore = 4615;
         console.log( 'User has ' + characters.length + ' characters and a grimoire score of ' + grimoireScore );
 
-        destinyInstance.definitions = true;
+        destinyClient.definitions = true;
 
         characters.forEach(function(character) {
             console.log( 'Character ' + character.characterBase.characterId + ' light level is: ' + character.characterBase.powerLevel );
 
             var params = { mode: 'Raid', count: '10', page: '0'}
-            destinyInstance.getActivityHistory( character.characterBase.characterId, params ).then(function( response ){
+            destinyClient.getActivityHistory( character.characterBase.characterId, params ).then(function( response ){
                 console.log( 'Raid History for ' + character.characterBase.characterId );
                 var raidActivities = response.data.Response.data.activities;
                 var raidDefinitions = response.data.Response.definitions;
@@ -37,7 +37,7 @@ destinyInstance.search('1', 'Carsten').then( function( response ){
 
             });
 
-            destinyInstance.getCharacterSummary( character.characterBase.characterId ).then( function( response ) {
+            destinyClient.getCharacterSummary( character.characterBase.characterId ).then( function( response ) {
                 var characterResponse = response.data.Response.data
                 var definitions = response.data.Response.definitions;
 

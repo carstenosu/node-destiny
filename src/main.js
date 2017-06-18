@@ -43,4 +43,4 @@ class DestinyClient {
 
 }
 
-exports.Destiny = DestinyClient;
+exports.DestinyClient = DestinyClient;
