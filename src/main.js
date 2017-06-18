@@ -51,9 +51,19 @@ class DestinyClient {
         return client.getPromise( this.hostUrl + '/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Advisors/V2/', this.args );
     }
 
+    getCharacterActivity( characterId ) {
+        this.args.path.characterId = characterId;
+        return client.getPromise( this.hostUrl + '/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Activities', this.args );
+    }
+
     getCharacterInventorySummary( characterId ) {
         this.args.path.characterId = characterId;
         return client.getPromise( this.hostUrl + '/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Inventory/Summary/', this.args );
+    }
+
+    getCharacterInventoryComplete( characterId ) {
+        this.args.path.characterId = characterId;
+        return client.getPromise( this.hostUrl + '/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Complete/', this.args );
     }
 
     equipItem( characterId, itemId ) {

@@ -61,6 +61,7 @@ destinyClient.search('1', 'Carsten').then( function( response ){
                         })
                         
                     });
+
                 }
 
                 console.log( 'Got character summary for ' + genderName + ' ' + raceName + ' ' + className );
