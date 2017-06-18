@@ -41,6 +41,27 @@ class DestinyClient {
         return client.getPromise( this.hostUrl + '/Stats/ActivityHistory/${membershipType}/${destinyMembershipId}/${characterId}/', this.args);
     }
 
+    getAdvisorsForAccount( membershipId ) {
+        this.args.path.destinyMembershipId = membershipId;
+        return client.getPromise( this.hostUrl + '/${membershipType}/Account/${destinyMembershipId}/Advisors/', this.args );
+    }
+
+    getAdvisorsForCharacter( characterId ) {
+        this.args.path.characterId = characterId;
+        return client.getPromise( this.hostUrl + '/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Advisors/V2/', this.args );
+    }
+
+    getCharacterInventorySummary( characterId ) {
+        this.args.path.characterId = characterId;
+        return client.getPromise( this.hostUrl + '/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Inventory/Summary/', this.args );
+    }
+
+    equipItem( characterId, itemId ) {
+        this.args.headers['Content-Type'] = 'application/json';
+        this.args.data = { membershipType: this.args.path.membershipType }
+        return client.postPromise( this.hostUrl + '/EquipItem/', this.args );
+    }
+
 }
 
 exports.DestinyClient = DestinyClient;

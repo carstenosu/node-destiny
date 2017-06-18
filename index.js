@@ -49,6 +49,20 @@ destinyClient.search('1', 'Carsten').then( function( response ){
                 var raceName = definitions.races[raceHash].raceName;
                 var className = definitions.classes[classHash].className;
 
+
+                if ( className == 'Titan') {
+                    destinyClient.getCharacterInventorySummary( character.characterBase.characterId ).then( function( response ){
+                        console.log( 'Got Inventory for Titan');
+                        var itemDefinitions = response.data.Response.definitions;
+                        var items = response.data.Response.data.items;
+
+                        items.forEach( function( item ) {
+                            console.log( 'Item is ' + itemDefinitions.items[item.itemHash].itemName );
+                        })
+                        
+                    });
+                }
+
                 console.log( 'Got character summary for ' + genderName + ' ' + raceName + ' ' + className );
                 console.log( 'Emblem Url: ' + bungieUrl + response.data.Response.data.emblemPath);
                 console.log( 'Icon Url: ' + bungieUrl + response.data.Response.data.backgroundPath);
