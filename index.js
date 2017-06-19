@@ -8,16 +8,15 @@ const destinyClient = new destiny.DestinyClient( apiKey, baseUrl );
 const membershipType = '1';
 
 destinyClient.search(membershipType, 'Carsten').then( function( response ){
-    console.log('Got a response!');
     const membership = response.data.Response[0];
     const membershipId = membership.membershipId;
-    console.log('Users membership id: ' + membershipId );
+    console.log(`Users membership id: ${membershipId}` );
 
     destinyClient.getAccountSummary( membershipType, membershipId ).then( function( response ){
         console.log('Got Membership Summary');
         const characters = response.data.Response.data.characters;
         const grimoireScore = 4615;
-        console.log( 'User has ' + characters.length + ' characters and a grimoire score of ' + grimoireScore );
+        console.log( `User has ${characters.length} characters and a grimoire score of grimoireScore` );
 
         destinyClient.definitions = true;
 
@@ -32,7 +31,7 @@ destinyClient.search(membershipType, 'Carsten').then( function( response ){
         const activitySummary3Promise = destinyClient.getActivityHistory( membershipType, membershipId, characterId3, params );
 
         Promise.all( [activitySummary1Promise, activitySummary2Promise, activitySummary3Promise] ).then( characterActivities => {
-            console.log('All promises resolved');
+            console.log('All activity promises resolved');
 
             characterActivities.forEach ( characterActivity => {
                 const raidActivities = characterActivity.data.Response.data.activities;
@@ -40,7 +39,7 @@ destinyClient.search(membershipType, 'Carsten').then( function( response ){
 
                 raidActivities.forEach( function( raidActivity ){
                     const raidReferenceId = raidActivity.activityDetails.referenceId;
-                    console.log( 'You ran ' + raidDefinitions.activities[raidReferenceId].activityName + ' on ' + raidActivity.period );
+                    console.log( `You ran ${raidDefinitions.activities[raidReferenceId].activityName}  on ${raidActivity.period}` );
                 })
             })
 
@@ -70,17 +69,16 @@ destinyClient.search(membershipType, 'Carsten').then( function( response ){
                         const items = response.data.Response.data.items;
 
                         items.forEach( function( item ) {
-                            console.log( 'Item is ' + itemDefinitions.items[item.itemHash].itemName );
+                            console.log( `Item is ${itemDefinitions.items[item.itemHash].itemName}` );
                         })
                         
                     });
 
                 }
 
-                console.log( 'Got character summary for ' + genderName + ' ' + raceName + ' ' + className );
-                console.log( 'Emblem Url: ' + bungieUrl + characterSummary.data.Response.data.emblemPath);
-                console.log( 'Icon Url: ' + bungieUrl + characterSummary.data.Response.data.backgroundPath);
-
+                console.log( `Got character summary for ${genderName} ${raceName} ${className}` );
+                console.log( `Emblem Url: ${bungieUrl} ${characterSummary.data.Response.data.emblemPath}` );
+                console.log( `Icon Url: ${bungieUrl} ${characterSummary.data.Response.data.backgroundPath}` );
             })
              
         });
