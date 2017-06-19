@@ -1,12 +1,9 @@
 
-var apiKey = process.env.BUNGIE_API_KEY;
-
-var bungieUrl = 'https://www.bungie.net';
-var baseUrl = bungieUrl + '/platform/Destiny';
-
-var destiny = require('./src/DestinyClient.js');
-
-var destinyClient = new destiny.DestinyClient( apiKey, baseUrl );
+const apiKey = process.env.BUNGIE_API_KEY;
+const bungieUrl = 'https://www.bungie.net';
+const baseUrl = bungieUrl + '/platform/Destiny';
+const destiny = require('./src/DestinyClient.js');
+const destinyClient = new destiny.DestinyClient( apiKey, baseUrl );
 
 var membershipType = '1';
 

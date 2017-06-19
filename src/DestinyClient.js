@@ -75,9 +75,10 @@ class DestinyClient {
     }
 
     equipItem( membershipType, membershipId, characterId, itemId ) {
-        this.args.headers['Content-Type'] = 'application/json';
-        this.args.data = { membershipType: this.args.path.membershipType }
-        return client.postPromise( this.hostUrl + '/EquipItem/', this.args );
+        const localArgs = extend( {}, this.args);
+        localArgs.path = { 'membershipType' : membershipType, 'destinyMembershipId': membershipId, 'characterId': characterId };
+        localArgs.headers['Content-Type'] = 'application/json';
+        return client.postPromise( this.hostUrl + '/EquipItem/', localArgs );
     }
 
 }
