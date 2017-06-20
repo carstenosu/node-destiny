@@ -2,9 +2,10 @@
   "name": "node-destiny",
   "version": "1.0.0",
   "description": "node api client for Bungies Destiny API",
-  "main": "index.js",
+  "main": "DestinyClient.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "int": "node test/integration.js"
   },
   "repository": {
     "type": "git",
