@@ -1,6 +1,6 @@
 {
   "name": "node-destiny",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "node api client for Bungies Destiny API",
   "main": "DestinyClient.js",
   "scripts": {
