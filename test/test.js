@@ -20,15 +20,37 @@ describe( 'DestinyClient', function() {
         it('should search Destiny API for a user', function(){
             var membershipType = '1';
             var displayName = 'Carsten';
-            
+
             const destinyClient = new destiny.DestinyClient(process.env.BUNGIE_API_KEY, bungieHostUrl);
-            sinon.stub( destinyClient.client, 'getPromise');
-            var promise = destinyClient.search('1','Carsten');
+            sinon.stub( destinyClient.client, 'getPromise').resolves({bungie:'response'});
+            var promise = destinyClient.search( membershipType, displayName );
 
             var expectedArgs = extend( {}, destinyClient.args);
             expectedArgs.path = { 'membershipType' : membershipType, 'displayName': displayName };
 
-            assert( destinyClient.client.getPromise.calledWithMatch( bungieHostUrl, expectedArgs ) );
+            assert( destinyClient.client.getPromise.calledWithMatch( bungieHostUrl + '/SearchDestinyPlayer/${membershipType}/${displayName}', expectedArgs ) );
+            promise.then( response => {
+                assert.equal( response.bungie, 'response');
+            })
+        })
+    })
+
+    describe('getAccountSummary', function(){
+        it('should get Account Summary from the Destiny API', function(){
+            var membershipType = '1';
+            var membershipId = '12345';
+            
+            const destinyClient = new destiny.DestinyClient(process.env.BUNGIE_API_KEY, bungieHostUrl);
+            sinon.stub( destinyClient.client, 'getPromise').resolves({bungie:'response'});;
+            var promise = destinyClient.getAccountSummary(membershipType, membershipId);
+
+            var expectedArgs = extend( {}, destinyClient.args);
+            expectedArgs.path = { 'membershipType' : membershipType, 'destinyMembershipId': membershipId };
+
+            assert( destinyClient.client.getPromise.calledWithMatch( bungieHostUrl + '/${membershipType}/Account/${destinyMembershipId}/Summary', expectedArgs ) );
+            promise.then( response => {
+                assert.equal( response.bungie, 'response');
+            })
         })
     })
 });
