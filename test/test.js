@@ -1,6 +1,6 @@
 const assert = require('assert');
 const sinon = require('sinon');
-const extend = require('util')._extend
+const extend = require('util')._extend;
 
 const destiny = require('../DestinyClient.js');
 var client = require('node-rest-client-promise');
@@ -31,9 +31,9 @@ describe( 'DestinyClient', function() {
             assert( destinyClient.client.getPromise.calledWithMatch( bungieHostUrl + '/SearchDestinyPlayer/${membershipType}/${displayName}', expectedArgs ) );
             promise.then( response => {
                 assert.equal( response.bungie, 'response');
-            })
-        })
-    })
+            });
+        });
+    });
 
     describe('getAccountSummary', function(){
         it('should get Account Summary from the Destiny API', function(){
@@ -41,7 +41,7 @@ describe( 'DestinyClient', function() {
             var membershipId = '12345';
             
             const destinyClient = new destiny.DestinyClient(process.env.BUNGIE_API_KEY, bungieHostUrl);
-            sinon.stub( destinyClient.client, 'getPromise').resolves({bungie:'response'});;
+            sinon.stub( destinyClient.client, 'getPromise').resolves({bungie:'response'});
             var promise = destinyClient.getAccountSummary(membershipType, membershipId);
 
             var expectedArgs = extend( {}, destinyClient.args);
@@ -50,7 +50,7 @@ describe( 'DestinyClient', function() {
             assert( destinyClient.client.getPromise.calledWithMatch( bungieHostUrl + '/${membershipType}/Account/${destinyMembershipId}/Summary', expectedArgs ) );
             promise.then( response => {
                 assert.equal( response.bungie, 'response');
-            })
-        })
-    })
+            });
+        });
+    });
 });
