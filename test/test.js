@@ -41,7 +41,6 @@ describe( 'DestinyClient', function() {
             var membershipId = '12345';
             
             const destinyClient = new destiny.DestinyClient(process.env.BUNGIE_API_KEY, bungieHostUrl);
-            sinon.stub( destinyClient.client, 'getPromise').resolves({bungie:'response'});
             var promise = destinyClient.getAccountSummary(membershipType, membershipId);
 
             var expectedArgs = extend( {}, destinyClient.args);
