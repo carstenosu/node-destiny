@@ -23,6 +23,12 @@ class DestinyClient {
     localArgs.path = { membershipType, displayName };
     return this.client.getPromise(`${this.hostUrl}/SearchDestinyPlayer/\${membershipType}/\${displayName}`, localArgs);
   }
+  
+  getMembershipIdByDisplayName(membershipType, displayName) {
+    const localArgs = extend({}, this.args);
+    localArgs.path = { membershipType, displayName };
+    return this.client.getPromise(`${this.hostUrl}/${membershipType}/Stats/GetMembershipIdByDisplayName/${displayName}`, localArgs);
+  }
 
   getAccountSummary(membershipType, membershipId) {
     const localArgs = extend({}, this.args);
@@ -109,7 +115,47 @@ class DestinyClient {
   getManifest( type, id ) {
     const localArgs = extend({}, this.args);
     localArgs.path = { type, id };
-    return this.client.getPromise(`${this.hostUrl}/Manifest/${type}/${id}`, localArgs);  
+    return this.client.getPromise(`${this.hostUrl}/Manifest/${type}/${id}/`, localArgs);  
+  }
+
+  getGrimoire( membershipType, membershipId ) {
+    const localArgs = extend({}, this.args);
+    localArgs.path = { membershipType, membershipId };
+    return this.client.getPromise(`${this.hostUrl}/Vanguard/Grimoire/${membershipType}/${membershipId}/`, localArgs);
+  }
+
+  getGrimoireDefinitions() {
+    const localArgs = extend({}, this.args);
+    return this.client.getPromise(`${this.hostUrl}/Vanguard/Grimoire/Definition/`, localArgs);
+  }
+
+  getHistoricalStats( membershipType, membershipId, characterId ) {
+    const localArgs = extend({}, this.args);
+    localArgs.path = { membershipType, destinyMembershipId: membershipId, characterId };
+    return this.client.getPromise(`${this.hostUrl}/Stats/${membershipType}/${destinyMembershipId}/${characterId}/`, localArgs);
+  }
+
+  getHistoricalStatDefinitions() {
+    const localArgs = extend({}, this.args);
+    return this.client.getPromise(`${this.hostUrl}/Stats/Definition/`, localArgs);
+  }
+
+  getAggregateHistoricStats( membershipType, membershipId ) {
+    const localArgs = extend({}, this.args);
+    localArgs.path = { membershipType, destinyMembershipId: membershipId  };
+    return this.client.getPromise(`${this.hostUrl}/Stats/Account/${membershipType}/${destinyMembershipId}/`, localArgs); 
+  }
+
+  getItemDetail( membershipType, membershipId, characterId, itemInstanceId ) {
+    const localArgs = extend({}, this.args);
+    localArgs.path = { membershipType, destinyMembershipId: membershipId, characterId, itemInstanceId };
+    return this.client.getPromise(`${this.hostUrl}/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Inventory/${itemInstanceId}`, localArgs); 
+  }
+
+  getItemDetailFromHash( membershipType, membershipId, characterId, itemHash ) {
+    const localArgs = extend({}, this.args);
+    localArgs.path = { membershipType, destinyMembershipId: membershipId, characterId, itemHash };
+    return this.client.getPromise(`${this.hostUrl}/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/ItemReference/${itemInstanceId}`, localArgs); 
   }
 
   equipItem(membershipType, membershipId, characterId, itemId) {
