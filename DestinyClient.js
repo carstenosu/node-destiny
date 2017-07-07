@@ -2,7 +2,7 @@ const extend = require('util')._extend;
 const promiseClient = require('node-rest-client-promise').Client();
 
 class DestinyClient {
-  constructor(apiKey, hostUrl, client = promiseClient) {
+  constructor(apiKey, hostUrl = 'https://www.bungie.net/platform/Destiny', client = promiseClient) {
     this.client = client;
     this.apiKey = apiKey;
     this.hostUrl = hostUrl;
