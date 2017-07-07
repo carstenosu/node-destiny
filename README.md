@@ -8,7 +8,7 @@ Node library for interacting with Destiny API
 npm install node-destiny
 ```
 
-## Example Useage
+## Example Usage
 
 ```javascript
 const apiKey = process.env.BUNGIE_API_KEY;
