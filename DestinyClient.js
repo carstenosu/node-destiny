@@ -149,13 +149,36 @@ class DestinyClient {
   getItemDetail( membershipType, membershipId, characterId, itemInstanceId ) {
     const localArgs = extend({}, this.args);
     localArgs.path = { membershipType, destinyMembershipId: membershipId, characterId, itemInstanceId };
-    return this.client.getPromise(`${this.hostUrl}/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Inventory/${itemInstanceId}`, localArgs); 
+    return this.client.getPromise(`${this.hostUrl}/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Inventory/${itemInstanceId}/`, localArgs); 
   }
 
   getItemDetailFromHash( membershipType, membershipId, characterId, itemHash ) {
     const localArgs = extend({}, this.args);
     localArgs.path = { membershipType, destinyMembershipId: membershipId, characterId, itemHash };
-    return this.client.getPromise(`${this.hostUrl}/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/ItemReference/${itemInstanceId}`, localArgs); 
+    return this.client.getPromise(`${this.hostUrl}/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/ItemReference/${itemInstanceId}/`, localArgs); 
+  }
+  
+  getPostGameCarnageReport( activityId ) {
+    const localArgs = extend({}, this.args);
+    localArgs.path = { activityId };
+    return this.client.getPromise(`${this.hostUrl}/Stats/PostGameCarnageReport/${activityId}/`, localArgs); 
+  }
+
+  getPublicAdvisorData() {
+    const localArgs = extend({}, this.args);
+    return this.client.getPromise(`${this.hostUrl}/Advisors/V2/`, localArgs); 
+  }
+
+  getTriumphs( membershipType, membershipId ) {
+    const localArgs = extend({}, this.args);
+    localArgs.path = { membershipType, destinyMembershipId: membershipId };
+    return this.client.getPromise(`${this.hostUrl}/${membershipType}/Account/${destinyMembershipId}/Triumphs/`, localArgs); 
+  }
+
+  getWeaponUsageStats( membershipType, membershipId, characterId ) {
+    const localArgs = extend({}, this.args);
+    localArgs.path = { membershipType, destinyMembershipId: membershipId, characterId };
+    return this.client.getPromise(`${this.hostUrl}/Stats/UniqueWeapons/${membershipType}/${destinyMembershipId}/${characterId}/`, localArgs); 
   }
 
   equipItem(membershipType, membershipId, characterId, itemId) {
