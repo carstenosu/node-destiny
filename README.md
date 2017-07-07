@@ -17,7 +17,7 @@ const apiKey = process.env.BUNGIE_API_KEY;
 const destinyClient = new destiny.DestinyClient( apiKey );
 ```
 
-Each method on DestinyClient returns a Promise. Here is an example of of searching for an Xbox player: 
+Each method on DestinyClient returns a Promise. Here is an example of searching for an Xbox player: 
 
 ```javascript
 // membershipType of '1' means this is an Xbox Player
