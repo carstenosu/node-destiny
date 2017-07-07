@@ -34,6 +34,6 @@ By default, these endpoints will return data that includes unique identifiers fo
 destinyClient.definitions = true;
 ```
 
-This will make all API requests return definitions until you set the field back to false;
+This will make all API requests return definitions until you set definitions back to false;
 
 For more information about what each method does and paramaters available, see [Bungies API Documentation](https://www.bungie.net/platform/destiny/help/).
