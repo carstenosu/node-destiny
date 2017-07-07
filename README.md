@@ -2,6 +2,8 @@
 
 Node library for interacting with Destiny API
 
+[![Build Status](https://travis-ci.org/carstenosu/node-destiny.svg?branch=master)](https://travis-ci.org/carstenosu/node-destiny)
+
 ## Installation
 
 ```javascript
