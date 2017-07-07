@@ -26,9 +26,9 @@
     "node-rest-client-promise": "^2.0.0"
   },
   "devDependencies": {
-    "eslint": "^4.0.0",
+    "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-import": "^2.7.0",
     "mocha": "^3.4.2",
     "sinon": "^2.3.5"
   }

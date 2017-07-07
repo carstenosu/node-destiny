@@ -23,7 +23,7 @@ class DestinyClient {
     localArgs.path = { membershipType, displayName };
     return this.client.getPromise(`${this.hostUrl}/SearchDestinyPlayer/\${membershipType}/\${displayName}`, localArgs);
   }
-  
+
   getMembershipIdByDisplayName(membershipType, displayName) {
     const localArgs = extend({}, this.args);
     localArgs.path = { membershipType, displayName };
@@ -70,7 +70,7 @@ class DestinyClient {
   getAggregateCharacterActivity(membershipType, membershipId, characterId) {
     const localArgs = extend({}, this.args);
     localArgs.path = { membershipType, destinyMembershipId: membershipId, characterId };
-    return this.client.getPromise(`${this.hostUrl}/Stats/AggregateActivityStats/${membershipType}/${destinyMembershipId}/${characterId}/`, localArgs);
+    return this.client.getPromise(`${this.hostUrl}/Stats/AggregateActivityStats/\${membershipType}/\${destinyMembershipId}/\${characterId}/`, localArgs);
   }
 
   getCharacterInventorySummary(membershipType, membershipId, characterId) {
@@ -99,26 +99,26 @@ class DestinyClient {
 
   getItems() {
     const localArgs = extend({}, this.args);
-    return this.client.getPromise(`${this.hostUrl}/Explorer/Items/`, localArgs);  
+    return this.client.getPromise(`${this.hostUrl}/Explorer/Items/`, localArgs);
   }
 
   getTalentNodeSteps() {
     const localArgs = extend({}, this.args);
-    return this.client.getPromise(`${this.hostUrl}/Explorer/TalentNodeSteps/`, localArgs);  
+    return this.client.getPromise(`${this.hostUrl}/Explorer/TalentNodeSteps/`, localArgs);
   }
 
   getCurrentManifest() {
     const localArgs = extend({}, this.args);
-    return this.client.getPromise(`${this.hostUrl}/Manifest/`, localArgs);  
+    return this.client.getPromise(`${this.hostUrl}/Manifest/`, localArgs);
   }
 
-  getManifest( type, id ) {
+  getManifest(type, id) {
     const localArgs = extend({}, this.args);
     localArgs.path = { type, id };
-    return this.client.getPromise(`${this.hostUrl}/Manifest/${type}/${id}/`, localArgs);  
+    return this.client.getPromise(`${this.hostUrl}/Manifest/${type}/${id}/`, localArgs);
   }
 
-  getGrimoire( membershipType, membershipId ) {
+  getGrimoire(membershipType, membershipId) {
     const localArgs = extend({}, this.args);
     localArgs.path = { membershipType, membershipId };
     return this.client.getPromise(`${this.hostUrl}/Vanguard/Grimoire/${membershipType}/${membershipId}/`, localArgs);
@@ -129,10 +129,10 @@ class DestinyClient {
     return this.client.getPromise(`${this.hostUrl}/Vanguard/Grimoire/Definition/`, localArgs);
   }
 
-  getHistoricalStats( membershipType, membershipId, characterId ) {
+  getHistoricalStats(membershipType, membershipId, characterId) {
     const localArgs = extend({}, this.args);
     localArgs.path = { membershipType, destinyMembershipId: membershipId, characterId };
-    return this.client.getPromise(`${this.hostUrl}/Stats/${membershipType}/${destinyMembershipId}/${characterId}/`, localArgs);
+    return this.client.getPromise(`${this.hostUrl}/Stats/\${membershipType}/\${destinyMembershipId}/\${characterId}/`, localArgs);
   }
 
   getHistoricalStatDefinitions() {
@@ -140,45 +140,45 @@ class DestinyClient {
     return this.client.getPromise(`${this.hostUrl}/Stats/Definition/`, localArgs);
   }
 
-  getAggregateHistoricStats( membershipType, membershipId ) {
+  getAggregateHistoricStats(membershipType, membershipId) {
     const localArgs = extend({}, this.args);
-    localArgs.path = { membershipType, destinyMembershipId: membershipId  };
-    return this.client.getPromise(`${this.hostUrl}/Stats/Account/${membershipType}/${destinyMembershipId}/`, localArgs); 
+    localArgs.path = { membershipType, destinyMembershipId: membershipId };
+    return this.client.getPromise(`${this.hostUrl}/Stats/Account/\${membershipType}/\${destinyMembershipId}/`, localArgs);
   }
 
-  getItemDetail( membershipType, membershipId, characterId, itemInstanceId ) {
+  getItemDetail(membershipType, membershipId, characterId, itemInstanceId) {
     const localArgs = extend({}, this.args);
     localArgs.path = { membershipType, destinyMembershipId: membershipId, characterId, itemInstanceId };
-    return this.client.getPromise(`${this.hostUrl}/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/Inventory/${itemInstanceId}/`, localArgs); 
+    return this.client.getPromise(`${this.hostUrl}/${membershipType}/Account/\${destinyMembershipId}/Character/\${characterId}/Inventory/\${itemInstanceId}/`, localArgs);
   }
 
-  getItemDetailFromHash( membershipType, membershipId, characterId, itemHash ) {
+  getItemDetailFromHash(membershipType, membershipId, characterId, itemHash) {
     const localArgs = extend({}, this.args);
     localArgs.path = { membershipType, destinyMembershipId: membershipId, characterId, itemHash };
-    return this.client.getPromise(`${this.hostUrl}/${membershipType}/Account/${destinyMembershipId}/Character/${characterId}/ItemReference/${itemInstanceId}/`, localArgs); 
+    return this.client.getPromise(`${this.hostUrl}/${membershipType}/Account/\${destinyMembershipId}/Character/\${characterId}/ItemReference/\${itemInstanceId}/`, localArgs);
   }
-  
-  getPostGameCarnageReport( activityId ) {
+
+  getPostGameCarnageReport(activityId) {
     const localArgs = extend({}, this.args);
     localArgs.path = { activityId };
-    return this.client.getPromise(`${this.hostUrl}/Stats/PostGameCarnageReport/${activityId}/`, localArgs); 
+    return this.client.getPromise(`${this.hostUrl}/Stats/PostGameCarnageReport/${activityId}/`, localArgs);
   }
 
   getPublicAdvisorData() {
     const localArgs = extend({}, this.args);
-    return this.client.getPromise(`${this.hostUrl}/Advisors/V2/`, localArgs); 
+    return this.client.getPromise(`${this.hostUrl}/Advisors/V2/`, localArgs);
   }
 
-  getTriumphs( membershipType, membershipId ) {
+  getTriumphs(membershipType, membershipId) {
     const localArgs = extend({}, this.args);
     localArgs.path = { membershipType, destinyMembershipId: membershipId };
-    return this.client.getPromise(`${this.hostUrl}/${membershipType}/Account/${destinyMembershipId}/Triumphs/`, localArgs); 
+    return this.client.getPromise(`${this.hostUrl}/\${membershipType}/Account/\${destinyMembershipId}/Triumphs/`, localArgs);
   }
 
-  getWeaponUsageStats( membershipType, membershipId, characterId ) {
+  getWeaponUsageStats(membershipType, membershipId, characterId) {
     const localArgs = extend({}, this.args);
     localArgs.path = { membershipType, destinyMembershipId: membershipId, characterId };
-    return this.client.getPromise(`${this.hostUrl}/Stats/UniqueWeapons/${membershipType}/${destinyMembershipId}/${characterId}/`, localArgs); 
+    return this.client.getPromise(`${this.hostUrl}/Stats/UniqueWeapons/\${membershipType}/\${destinyMembershipId}/\${characterId}/`, localArgs);
   }
 
   equipItem(membershipType, membershipId, characterId, itemId) {
