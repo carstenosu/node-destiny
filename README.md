@@ -14,6 +14,7 @@ npm install node-destiny
 
 ```javascript
 const apiKey = process.env.BUNGIE_API_KEY;
+const destiny = require('node-destiny');
 const destinyClient = new destiny.DestinyClient( apiKey );
 ```
 
